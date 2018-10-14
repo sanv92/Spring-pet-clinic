@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE"></title>
+</head>
+<body>
+    <header>
+        <div th:replace="fragments/header :: header">Header</div>
+        <h1 th:text="#{welcome}">Welcome</h1>
+    </header>
+    <hr/>
+    <div layout:fragment="content"></div>
+    <hr />
+    <div layout:fragment="footer">{{ Common Footer }}</div>
+</body>
+</html>

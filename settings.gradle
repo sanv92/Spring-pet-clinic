@@ -1,0 +1,5 @@
+rootProject.name = 'pet-clinic'
+
+include "pet-clinic-data"
+include "pet-clinic-web"
+include "pet-clinic-admin"
