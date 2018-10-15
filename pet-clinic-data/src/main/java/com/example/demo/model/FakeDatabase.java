@@ -7,9 +7,7 @@ public class FakeDatabase implements Serializable {
     private String password;
     private String database;
 
-    public FakeDatabase() {
-
-    }
+    public FakeDatabase() {}
 
     public FakeDatabase(String user, String password, String database) {
         this.user = user;

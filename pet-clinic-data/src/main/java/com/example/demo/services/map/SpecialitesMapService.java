@@ -1,30 +1,30 @@
 package com.example.demo.services.map;
 
-import com.example.demo.model.Vet;
-import com.example.demo.services.VetService;
+import com.example.demo.model.Speciality;
+import com.example.demo.services.SpecialitesService;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
 @Service
-public class VetServiceMap extends AbstractMapService<Vet, Long> implements VetService {
+public class SpecialitesMapService extends AbstractMapService<Speciality, Long> implements SpecialitesService {
     @Override
-    public Set<Vet> findAll() {
+    public Set<Speciality> findAll() {
         return super.findAll();
     }
 
     @Override
-    public Vet findById(Long id) {
+    public Speciality findById(Long id) {
         return super.findById(id);
     }
 
     @Override
-    public Vet save(Vet object) {
+    public Speciality save(Speciality object) {
         return super.save(object);
     }
 
     @Override
-    public void delete(Vet object) {
+    public void delete(Speciality object) {
         super.delete(object);
     }
 
