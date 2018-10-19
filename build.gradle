@@ -46,6 +46,18 @@ subprojects {
         runtime('com.h2database:h2')
         runtime('mysql:mysql-connector-java')
 
+        // tests
+        testImplementation("org.junit.jupiter:junit-jupiter-api:5.3.1")
+        testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.3.1")
+        testRuntimeOnly("org.junit.vintage:junit-vintage-engine:5.3.1")
+        testCompile("org.junit.platform:junit-platform-runner:1.2.0")
+
+        // Dependency setup for integration tests
+        integrationTestImplementation("org.junit.jupiter:junit-jupiter-api:5.3.1")
+        integrationTestRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.3.1")
+        integrationTestRuntimeOnly("org.junit.vintage:junit-vintage-engine:5.3.1")
+        integrationTestCompile("org.junit.platform:junit-platform-runner:1.2.0")
+
         // tools
         runtime('org.springframework.boot:spring-boot-devtools')
         compileOnly('org.projectlombok:lombok')
