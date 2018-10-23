@@ -11,11 +11,15 @@ buildscript {
 }
 
 ext {
+    springVersion = "5.1.1.RELEASE"
     springBootAdminVersion = '2.0.3'
+    junitJupiterVersion  = '5.3.1'
+    junitPlatformVersion = '1.3.1'
 }
 
 subprojects {
     apply plugin: 'java'
+    apply plugin: 'idea'
     apply plugin: 'eclipse'
     apply plugin: 'org.springframework.boot'
     apply plugin: 'io.spring.dependency-management'
@@ -24,6 +28,11 @@ subprojects {
     version = '0.0.1'
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
+
+    configurations {
+        integrationTestImplementation.extendsFrom implementation
+        integrationTestRuntimeOnly.extendsFrom runtimeOnly
+    }
 
     repositories {
         mavenCentral()
@@ -40,37 +49,37 @@ subprojects {
         compile('org.springframework.boot:spring-boot-starter-thymeleaf')
         compile('nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:2.3.0')
         compile('org.springframework.boot:spring-boot-starter-web')
+
         testCompile('org.springframework.boot:spring-boot-starter-test')
+        testCompile('org.springframework.security:spring-security-test')
+        compile("org.springframework:spring-test:${springVersion}")
 
         // db
         runtime('com.h2database:h2')
         runtime('mysql:mysql-connector-java')
 
         // tests
-        testImplementation("org.junit.jupiter:junit-jupiter-api:5.3.1")
-        testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.3.1")
-        testRuntimeOnly("org.junit.vintage:junit-vintage-engine:5.3.1")
-        testCompile("org.junit.vintage:junit-platform-engine:5.3.1")
-        testCompile("org.junit.platform:junit-platform-runner:1.2.0")
-        testCompile("org.mockito:mockito-junit-jupiter:2.17.1")
+        testCompile("org.junit.jupiter:junit-jupiter-api:${junitJupiterVersion}")
+        testCompile("org.junit.jupiter:junit-jupiter-params:${junitJupiterVersion}")
+        testRuntime("org.junit.jupiter:junit-jupiter-engine:${junitJupiterVersion}")
 
-        // Dependency setup for integration tests
-        integrationTestImplementation("org.junit.jupiter:junit-jupiter-api:5.3.1")
-        integrationTestRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.3.1")
-        integrationTestRuntimeOnly("org.junit.vintage:junit-vintage-engine:5.3.1")
-        integrationTestCompile("org.junit.vintage:junit-platform-engine:5.3.1")
-        integrationTestCompile("org.junit.platform:junit-platform-runner:1.2.0")
-        integrationTestCompile("org.mockito:mockito-junit-jupiter:2.17.1")
+        // Enable use of the JUnitPlatform Runner within the IDE
+        testCompile("org.junit.platform:junit-platform-runner:${junitPlatformVersion}")
 
         // tools
-        runtime('org.springframework.boot:spring-boot-devtools')
-        compileOnly('org.projectlombok:lombok')
+        runtime("org.springframework.boot:spring-boot-devtools")
+        compileOnly("org.projectlombok:lombok:1.18.2")
     }
 
     dependencyManagement {
         imports {
             mavenBom "de.codecentric:spring-boot-admin-dependencies:${springBootAdminVersion}"
         }
+    }
+
+    test {
+        useJUnitPlatform()
+        testLogging.events "failed" // , "passed", "skipped", "standardOut", "standardError"
     }
 }
 

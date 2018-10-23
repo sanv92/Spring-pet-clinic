@@ -1,5 +1,6 @@
 package com.example.demo.bootstrap;
 
+
 import com.example.demo.model.*;
 import com.example.demo.services.*;
 import org.springframework.boot.CommandLineRunner;
@@ -24,7 +25,7 @@ public class DataLoader implements CommandLineRunner {
     }
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
         PetType dog = new PetType();
         dog.setName("Dog");
         PetType dogType = petTypeService.save(dog);
