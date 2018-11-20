@@ -21,6 +21,9 @@ import org.springframework.mock.http.server.reactive.MockServerHttpRequest;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MockMvcBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.is;
+
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.ui.Model;
 
@@ -68,6 +71,26 @@ class OwnerControllerTest {
 
         Set<Owner> setInController = argumentCaptor.getValue();
         assertEquals(2, setInController.size());
+    }
+
+    @Test
+    void showOwner() throws Exception {
+        MockMvc mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
+
+        Owner owner = new Owner();
+        owner.setId(1L);
+        owner.setAddress("test address");
+        owner.setCity("test city");
+        owner.setPhone("444");
+
+        when(ownerService.findById(1L)).thenReturn(owner);
+        mockMvc.perform(get("/owners/1"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("owners/ownerDetails"))
+                .andExpect(model().attribute("owner", hasProperty("id", is(1L))))
+                .andExpect(model().attribute("owner", hasProperty("address", is("test address"))))
+                .andExpect(model().attribute("owner", hasProperty("city", is("test city"))))
+                .andExpect(model().attribute("owner", hasProperty("phone", is("444"))));
     }
 
     @Test

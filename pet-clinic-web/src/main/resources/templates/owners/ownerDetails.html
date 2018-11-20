@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="fragments/layout"
+>
+<head>
+    <title>Owner Information</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <h2 th:text="'Owner Information'">Owner Information</h2>
+    <dl>
+        <dt>First Name:</dt>
+        <dd th:text="${owner.firstName}">firstName></dd>
+        <dt>Last Name:</dt>
+        <dd th:text="${owner.lastName}">lastName></dd>
+        <dt>Address:</dt>
+        <dd th:text="${owner.address}">address></dd>
+        <dt>City:</dt>
+        <dd th:text="${owner.city}">city></dd>
+        <dt>Phone:</dt>
+        <dd th:text="${owner.phone}">phone></dd>
+    </dl>
+
+    <hr />
+    <h2 th:text="'Pets and Visits'">Pets and Visits</h2>
+    <table class="table table-striped" style="border: 1px solid;">
+        <thead>
+        <tr>
+            <th style="width: 150px; border: 1px solid;">Id</th>
+            <th style="width: 150px; border: 1px solid;">Name</th>
+            <th style="width: 150px; border: 1px solid;">Birth Date</th>
+            <th style="width: 150px; border: 1px solid;">Type</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="pet : ${owner.pets}">
+            <td th:text="${pet.id}">1</td>
+            <td th:text="${pet.name}">-</td>
+            <td th:text="${pet.birthDate}">-</td>
+            <td th:text="${pet.petType}">-</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
