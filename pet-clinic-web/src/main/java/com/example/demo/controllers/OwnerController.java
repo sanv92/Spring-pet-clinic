@@ -4,7 +4,6 @@ import com.example.demo.model.Owner;
 import com.example.demo.services.OwnerService;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -92,12 +91,23 @@ public class OwnerController {
     }
 
     @GetMapping("/{ownerId}/edit")
-    public String initUpdateOwnerForm() {
-        return "";
+    public String initUpdateOwnerForm(@PathVariable("ownerId") Long ownerId, Model model) {
+        Owner owner = ownerService.findById(ownerId);
+        model.addAttribute("owner", owner);
+
+        return "owners/createOrUpdateOwnerForm";
     }
 
     @PostMapping("/{ownerId}/edit")
-    public String processUpdateOwnerForm() {
-        return "";
+    public String processUpdateOwnerForm(@Valid Owner owner, BindingResult bindingResult, @PathVariable("ownerId") Long ownerId) {
+        if (bindingResult.hasErrors()) {
+            return "owners/createOrUpdateOwnerForm";
+        }
+        else {
+            owner.setId(ownerId);
+            Owner savedOwner = ownerService.save(owner);
+
+            return "redirect:/owners/" + savedOwner.getId();
+        }
     }
 }

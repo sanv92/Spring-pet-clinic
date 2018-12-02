@@ -30,7 +30,10 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm" layout:fragment="footer">
-                Copyright © 2019
+                <p style="padding: 20px">
+                    <span>Copyright &copy;</span>
+                    <span th:text="${#dates.format(#dates.createNow(), 'yyyy')}">1970</span>
+                </p>
             </div>
         </div>
     </div>
