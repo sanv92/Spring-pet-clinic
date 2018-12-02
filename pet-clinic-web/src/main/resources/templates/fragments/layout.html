@@ -5,15 +5,34 @@
 <head>
     <meta charset="UTF-8">
     <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE"></title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
 </head>
 <body>
-    <header>
-        <div th:replace="fragments/header :: header">Header</div>
-        <h1 th:text="#{welcome}">Welcome</h1>
-    </header>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm">
+                <header>
+                    <div th:replace="fragments/header :: header">Header</div>
+                    <h1 th:text="#{welcome}">Welcome</h1>
+                </header>
+            </div>
+        </div>
+    </div>
+
     <hr/>
-    <div layout:fragment="content"></div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm" layout:fragment="content"></div>
+        </div>
+    </div>
     <hr />
-    <div layout:fragment="footer" style="border: 1px solid;">Copyright © 2018</div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm" layout:fragment="footer">
+                Copyright © 2019
+            </div>
+        </div>
+    </div>
 </body>
 </html>

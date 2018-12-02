@@ -8,24 +8,27 @@
 <head>
     <title>Vets List!!!</title>
 </head>
-<body layout:fragment="content">
-<h2 th:text="'List of Vets'">Vets List</h2>
+<body>
+    <div layout:fragment="content">
 
-<table class="table table-striped" style="border: 1px solid;">
-    <thead>
-    <tr>
-        <th style="width: 150px; border: 1px solid;">Id</th>
-        <th style="width: 150px; border: 1px solid;">First Name</th>
-        <th style="width: 150px; border: 1px solid;">Last Name</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="vet : ${vets}">
-        <td th:text="${vet.id}">1</td>
-        <td th:text="${vet.firstName}">Joe</td>
-        <td th:text="${vet.lastName}">Buck</td>
-    </tr>
-    </tbody>
-</table>
+        <h2 th:text="'List of Vets'">Vets List</h2>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">First Name</th>
+                <th scope="col">Last Name</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="vet : ${vets}">
+                <td th:text="${vet.id}">1</td>
+                <td th:text="${vet.firstName}">-</td>
+                <td th:text="${vet.lastName}">-</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>

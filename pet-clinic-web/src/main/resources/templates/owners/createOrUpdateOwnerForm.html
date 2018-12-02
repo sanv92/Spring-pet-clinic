@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="fragments/layout"
+>
+<head>
+    <title>Create / Update Owner</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <form
+            th:object="${owner}"
+            th:action="@{/owners/new}"
+            method="post"
+            class="form-horizontal"
+            id="create-owner-form"
+    >
+        <div class="form-group">
+            <div class="control-group" id="lastNameGroup">
+                <div class="col-sm-10">
+                    <div class="form-field">
+                        <label class="control-label">First Name:</label>
+                        <input
+                                class="form-control"
+                                th:field="*{firstName}"
+                                size="30"
+                                maxlength="80"
+                        />
+                    </div>
+                    <div class="form-field">
+                        <label class="control-label">Last Name:</label>
+                        <input
+                                class="form-control"
+                                th:field="*{lastName}"
+                                size="30"
+                                maxlength="80"
+                        />
+                    </div>
+                    <div class="form-field">
+                        <label class="control-label">Address:</label>
+                        <input
+                                class="form-control"
+                                th:field="*{address}"
+                                size="30"
+                                maxlength="80"
+                        />
+                    </div>
+                    <div class="form-field">
+                        <label class="control-label">City:</label>
+                        <input
+                                class="form-control"
+                                th:field="*{city}"
+                                size="30"
+                                maxlength="80"
+                        />
+                    </div>
+                    <div class="form-field">
+                        <label class="control-label">Phone:</label>
+                        <input
+                                class="form-control"
+                                th:field="*{phone}"
+                                size="30"
+                                maxlength="80"
+                        />
+                    </div>
+                    <span class="help-inline">
+                        <div th:if="${#fields.hasAnyErrors()}">
+                            <p th:each="err : ${#fields.allErrors()}" th:text="${err}">Error</p>
+                        </div>
+                    </span>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-primary">
+                            Save
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>

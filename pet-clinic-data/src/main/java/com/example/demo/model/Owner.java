@@ -1,18 +1,22 @@
 package com.example.demo.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "owners")
 public class Owner extends Person {
+    @NotNull
     @Column(name = "address")
     private String address;
 
+    @NotNull
     @Column(name = "city")
     private String city;
 
+    @NotNull
     @Column(name = "phone")
     private String phone;
 

@@ -50,6 +50,8 @@ public class DataLoader implements CommandLineRunner {
 
         System.out.println("Loaded Specialites ....");
 
+        ///////////////////////////////////////
+
         Owner owner1 = new Owner();
         owner1.setFirstName("First Owner - Name 1");
         owner1.setLastName("Last Owner - Name 1");
@@ -65,6 +67,8 @@ public class DataLoader implements CommandLineRunner {
 
         owner1.getPets().add(pet1);
         ownerService.save(owner1);
+
+        ///////////////////////////////////////
 
         Owner owner2 = new Owner();
         owner2.setFirstName("First Owner - Name 2");
@@ -82,6 +86,8 @@ public class DataLoader implements CommandLineRunner {
         owner1.getPets().add(pet2);
         ownerService.save(owner2);
 
+        ///////////////////////////////////////
+
         Owner owner3 = new Owner();
         owner3.setFirstName("First Owner - Name 3");
         owner3.setLastName("Last Owner - Name 3");
@@ -98,6 +104,8 @@ public class DataLoader implements CommandLineRunner {
         owner3.getPets().add(pet3);
         ownerService.save(owner3);
 
+        ///////////////////////////////////////
+
         Owner owner4 = new Owner();
         owner4.setFirstName("First Owner - Name 4");
         owner4.setLastName("Last Owner - Name 4");
@@ -113,6 +121,26 @@ public class DataLoader implements CommandLineRunner {
 
         owner4.getPets().add(pet4);
         ownerService.save(owner4);
+
+        ///////////////////////////////////////
+
+        Owner owner5 = new Owner();
+        owner5.setFirstName("First Owner - Name 4");
+        owner5.setLastName("Last Owner - Name 4");
+        owner5.setAddress("444 test - Address");
+        owner5.setCity("city test 333");
+        owner5.setPhone("+444");
+
+        Pet pet5 = new Pet();
+        pet5.setName("Test Pet name - 4");
+        pet5.setPetType(catType);
+        pet5.setOwner(owner5);
+        pet5.setBirthDate(LocalDate.now());
+
+        owner5.getPets().add(pet5);
+        ownerService.save(owner5);
+
+        ///////////////////////////////////////
 
         System.out.println("Loaded Owners....");
 

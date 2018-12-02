@@ -13,26 +13,27 @@
     <h2 th:text="'Owner Information'">Owner Information</h2>
     <dl>
         <dt>First Name:</dt>
-        <dd th:text="${owner.firstName}">firstName></dd>
+            <dd th:text="${owner.firstName}">firstName></dd>
         <dt>Last Name:</dt>
-        <dd th:text="${owner.lastName}">lastName></dd>
+            <dd th:text="${owner.lastName}">lastName></dd>
         <dt>Address:</dt>
-        <dd th:text="${owner.address}">address></dd>
+            <dd th:text="${owner.address}">address></dd>
         <dt>City:</dt>
-        <dd th:text="${owner.city}">city></dd>
+            <dd th:text="${owner.city}">city></dd>
         <dt>Phone:</dt>
-        <dd th:text="${owner.phone}">phone></dd>
+            <dd th:text="${owner.phone}">phone></dd>
     </dl>
 
     <hr />
+
     <h2 th:text="'Pets and Visits'">Pets and Visits</h2>
-    <table class="table table-striped" style="border: 1px solid;">
+    <table class="table">
         <thead>
         <tr>
-            <th style="width: 150px; border: 1px solid;">Id</th>
-            <th style="width: 150px; border: 1px solid;">Name</th>
-            <th style="width: 150px; border: 1px solid;">Birth Date</th>
-            <th style="width: 150px; border: 1px solid;">Type</th>
+            <th scope="col">#</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Birth Date</th>
+            <th scope="col">Pet Type</th>
         </tr>
         </thead>
         <tbody>

@@ -10,14 +10,27 @@
 </head>
 <body>
 <div layout:fragment="content">
-    <h2 th:text="'List of Owners'">Owners List</h2>
+    <div style="display: flex;flex-direction: row;align-items: center;justify-content: space-between;">
+        <h2 th:text="'List of Owners'">Owners List</h2>
+        <a href="/owners/new">
+            <button type="button" class="btn btn-primary">Create</button>
+        </a>
+    </div>
+    <div style="display: flex;flex-direction: row;align-items: center;justify-content: space-between;">
+        <div></div>
+        <a href="/owners/search">
+            <button type="button" class="btn btn-primary">Search</button>
+        </a>
+    </div>
 
-    <table class="table table-striped" style="border: 1px solid;">
+    <br />
+
+    <table class="table">
         <thead>
         <tr>
-            <th style="width: 150px; border: 1px solid;">Id</th>
-            <th style="width: 150px; border: 1px solid;">First Name</th>
-            <th style="width: 150px; border: 1px solid;">Last Name</th>
+            <th scope="col">#</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
         </tr>
         </thead>
         <tbody>
