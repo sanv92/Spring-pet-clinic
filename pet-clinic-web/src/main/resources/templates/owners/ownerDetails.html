@@ -28,6 +28,14 @@
 
     <hr/>
 
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <a th:href="@{/owners/{id}/edit(id=${owner.id})}">
+                <button type="submit" class="btn btn-primary">Edit Owner</button>
+            </a>
+        </div>
+    </div>
+
     <h2 th:text="'Pets and Visits'">Pets and Visits</h2>
     <table class="table">
         <thead>
@@ -50,10 +58,7 @@
 
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
-            <a th:href="@{/owners/{id}/edit(id=${owner.id})}">
-                <button type="submit" class="btn btn-primary">Edit Owner</button>
-            </a>
-            <a th:href="@{/owners/pet/{id}/edit(id=${owner.id})}">
+            <a th:href="@{/owners/{id}/pets/new(id=${owner.id})}">
                 <button type="submit" class="btn btn-primary">Add New Pet</button>
             </a>
         </div>

@@ -49,6 +49,7 @@ subprojects {
         compile('org.springframework.boot:spring-boot-starter-thymeleaf')
         compile('nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:2.3.0')
         compile('org.springframework.boot:spring-boot-starter-web')
+        compile('org.thymeleaf.extras:thymeleaf-extras-java8time:3.0.2.RELEASE')
 
         testCompile('org.springframework.boot:spring-boot-starter-test')
         testCompile('org.springframework.security:spring-security-test')

@@ -64,6 +64,10 @@ public class Owner extends Person {
         this.pets = pets;
     }
 
+    public Pet getPet(String name) {
+        return getPet(name);
+    }
+
     @Override
     public String toString() {
         return "Owner{" +
