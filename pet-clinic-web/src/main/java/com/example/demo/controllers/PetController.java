@@ -8,7 +8,9 @@ import com.example.demo.services.PetService;
 import com.example.demo.services.PetTypeService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -38,8 +40,13 @@ public class PetController {
         return ownerService.findById(ownerId);
     }
 
+    @InitBinder("owner")
+    public void initOwnerBinder(WebDataBinder dataBinder) {
+        dataBinder.setDisallowedFields("id");
+    }
+
     @GetMapping("/pets/new")
-    public String initCreationForm(Model model) {
+    public String initCreationForm(Owner owner, Model model) {
         Pet pet = new Pet();
         model.addAttribute("pet", pet);
 
@@ -48,7 +55,10 @@ public class PetController {
 
     @PostMapping("/pets/new")
     public String processCreationForm(Owner owner, @Valid Pet pet, BindingResult bindingResult, Model model) {
-        owner.getPets().add(pet);
+        if (StringUtils.hasLength(pet.getName()) && pet.isNew() && owner.getPet(pet.getName()) != null){
+            bindingResult.rejectValue("name", "duplicate", "already exists");
+        }
+        pet.setOwner(owner);
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("pet", pet);
@@ -56,10 +66,7 @@ public class PetController {
             return "pets/createOrUpdatePetForm";
         }
         else {
-            // ownerService.save(owner);
-            // petService.save(pet);
-
-            System.out.println("owner.getId(): " + owner.getId());
+            petService.save(pet);
 
             return "redirect:/owners/" + owner.getId();
         }

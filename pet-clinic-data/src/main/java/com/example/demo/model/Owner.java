@@ -1,9 +1,12 @@
 package com.example.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "owners")
@@ -21,9 +24,11 @@ public class Owner extends Person {
     private String phone;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
+    @JsonBackReference
     private Set<Pet> pets = new HashSet<>();
 
-    public Owner() {}
+    public Owner() {
+    }
 
     public Owner(String address, String city, String phone, Set<Pet> pets) {
         this.address = address;
@@ -65,7 +70,19 @@ public class Owner extends Person {
     }
 
     public Pet getPet(String name) {
-        return getPet(name);
+        name = name.toLowerCase();
+
+        for (Pet pet : pets) {
+            if (!pet.isNew()) {
+                String compName = pet.getName();
+                compName = compName.toLowerCase();
+                if (compName.equals(name)) {
+                    return pet;
+                }
+            }
+        }
+
+        return null;
     }
 
     @Override
@@ -74,7 +91,7 @@ public class Owner extends Person {
                 "address='" + address + '\'' +
                 ", city='" + city + '\'' +
                 ", phone='" + phone + '\'' +
-                ", pets=" + pets +
-                '}';
+                // ", pets=" + pets.stream().map(pet -> String.format("Pet {name:%s, petType:%s, owner:%s, birthDate:%s, visits:%s}", pet.getName(), pet.getPetType(), pet.getOwner(), pet.getBirthDate(), pet.getVisits())).collect(Collectors.toSet()) +
+            '}';
     }
 }

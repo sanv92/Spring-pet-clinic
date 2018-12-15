@@ -1,10 +1,12 @@
 package com.example.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "pets")
@@ -31,6 +33,7 @@ public class Pet extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "owner_id")
+    @JsonBackReference
     private Owner owner;
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
@@ -85,7 +88,7 @@ public class Pet extends BaseEntity {
         return "Pet{" +
                 "name='" + name + '\'' +
                 ", petType=" + petType +
-                ", owner=" + owner +
+                // ", owner=" +  String.format("Pet {id:%s, firstName:%s, lastName:%s, address:%s, city:%s, phone:%s}", owner.getId(), owner.getFirstName(), owner.getLastName(), owner.getAddress(), owner.getCity(), owner.getPhone()) +
                 ", birthDate=" + birthDate +
                 ", visits=" + visits +
                 '}';
