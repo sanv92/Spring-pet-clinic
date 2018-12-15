@@ -44,6 +44,7 @@
             <th scope="col">First Name</th>
             <th scope="col">Birth Date</th>
             <th scope="col">Pet Type</th>
+            <th scope="col"></th>
         </tr>
         </thead>
         <tbody>
@@ -52,6 +53,11 @@
             <td th:text="${pet.name}">-</td>
             <td th:text="${pet.birthDate}">-</td>
             <td th:text="${pet.petType}">-</td>
+            <td>
+                <a th:href="@{/owners/{ownerId}/pets/{petId}/edit(ownerId=${owner.id}, petId=${pet.id})}">
+                    <button type="submit" class="btn btn-primary">Edit</button>
+                </a>
+            </td>
         </tr>
         </tbody>
     </table>
