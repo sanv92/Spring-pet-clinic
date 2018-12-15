@@ -5,6 +5,7 @@ import com.example.demo.services.OwnerService;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -19,10 +20,10 @@ public class OwnerController {
         this.ownerService = ownerService;
     }
 
-//    @InitBinder
-//    public void setAllowedFields(WebDataBinder dataBinder) {
-//        dataBinder.setDisallowedFields("id");
-//    }
+    @InitBinder
+    public void setAllowedFields(WebDataBinder dataBinder) {
+        dataBinder.setDisallowedFields("id");
+    }
 
     @RequestMapping({"", "/index",  "/index.html"})
     public String index(Model model) {

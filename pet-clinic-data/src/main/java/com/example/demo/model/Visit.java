@@ -8,8 +8,8 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "visits")
 public class Visit extends BaseEntity {
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @Column(name = "visit_date")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;
 
     @Column(name = "description")

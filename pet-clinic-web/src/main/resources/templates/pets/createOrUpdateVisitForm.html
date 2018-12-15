@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="fragments/layout"
+>
+<head>
+    <title>
+        <th:block th:if="${visit['new']}">New </th:block>
+        Visit
+    </title>
+</head>
+<body>
+
+<h2>Pet</h2>
+
+<div layout:fragment="content">
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Birth Date</th>
+            <th scope="col">Type</th>
+            <th scope="col">Owner</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:object="${pet}">
+            <td th:text="*{name}">-</td>
+            <td th:text="*{birthDate}">-</td>
+            <td th:text="*{petType}">-</td>
+            <td th:text="*{owner?.firstName + ' ' + owner?.lastName}">-</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <hr />
+
+    <form
+            th:object="${visit}"
+            method="post"
+            class="form-horizontal"
+            id="create-owner-form"
+    >
+        <input type="hidden" name="id" th:value="*{id}"/>
+        <div class="form-group">
+
+            <div class="control-group" id="lastNameGroup">
+                <div class="col-sm-10">
+                    <div class="form-field">
+                        <label class="control-label">Description:</label>
+                        <input
+                                class="form-control"
+                                th:field="*{description}"
+                                size="30"
+                                maxlength="80"
+                        />
+                    </div>
+                    <div class="form-field">
+                        <label class="control-label">Date:</label>
+                        <input class="form-control"
+                               type="date" th:value="*{date}" th:field="*{date}"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-primary">
+                            Save
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </form>
+
+    <hr />
+
+    <h3>Previous Visits</h3>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Date</th>
+            <th scope="col">Description</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${!visit['new']}" th:each="visit : ${visits}">
+            <td th:text="${visit.date}">-</td>
+            <td th:text=" ${visit.description}">-</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

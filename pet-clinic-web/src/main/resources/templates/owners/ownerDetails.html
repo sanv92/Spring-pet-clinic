@@ -57,6 +57,9 @@
                 <a th:href="@{/owners/{ownerId}/pets/{petId}/edit(ownerId=${owner.id}, petId=${pet.id})}">
                     <button type="submit" class="btn btn-primary">Edit</button>
                 </a>
+                <a th:href="@{/owners/{ownerId}/pets/{petId}/visits/new(ownerId=${owner.id}, petId=${pet.id})}">
+                    <button type="submit" class="btn btn-primary">Add Visit</button>
+                </a>
             </td>
         </tr>
         </tbody>
