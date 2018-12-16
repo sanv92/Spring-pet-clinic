@@ -1,5 +1,6 @@
 package com.example.demo.services.jpa;
 
+import com.example.demo.exceptions.NotFoundException;
 import com.example.demo.model.Owner;
 import com.example.demo.repositories.OwnerRepository;
 import com.example.demo.repositories.PetRepository;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -30,7 +32,7 @@ public class OwnerJpaService implements OwnerService {
     }
 
     @Override
-    public Owner findByLastName(String lastName){
+    public Owner findByLastName(String lastName) {
         return ownerRepository.findByLastName(lastName);
     }
 
@@ -46,7 +48,13 @@ public class OwnerJpaService implements OwnerService {
 
     @Override
     public Owner findById(Long id) {
-        return ownerRepository.findById(id).orElse(null);
+        Optional<Owner> owner = ownerRepository.findById(id);
+
+        if (!owner.isPresent()) {
+            throw new NotFoundException("Not Found. For id: " + id.toString());
+        }
+
+        return owner.get();
     }
 
     @Override

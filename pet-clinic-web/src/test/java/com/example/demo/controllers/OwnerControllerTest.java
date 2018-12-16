@@ -1,5 +1,6 @@
 package com.example.demo.controllers;
 
+import com.example.demo.exceptions.NotFoundException;
 import com.example.demo.model.Owner;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,17 +18,12 @@ import static org.mockito.Mockito.*;
 
 import com.example.demo.services.OwnerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mock.http.server.reactive.MockServerHttpRequest;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MockMvcBuilder;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.Matchers.is;
 
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.ui.Model;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class OwnerControllerTest {
     @Mock
@@ -36,9 +32,12 @@ class OwnerControllerTest {
     @Mock
     Model model;
 
-    @Autowired
-    MockMvc mvc = null;
+    MockMvc mockMvc;
 
+    @Autowired
+    GlobalExceptionHandler globalExceptionHandler;
+
+    @Autowired
     OwnerController controller;
 
     @BeforeEach
@@ -46,6 +45,10 @@ class OwnerControllerTest {
         MockitoAnnotations.initMocks(this);
 
         this.controller = new OwnerController(ownerService);
+        this.mockMvc = MockMvcBuilders
+                .standaloneSetup(controller)
+                .setControllerAdvice(new GlobalExceptionHandler())
+                .build();
     }
 
     @Test
@@ -55,7 +58,7 @@ class OwnerControllerTest {
         owner1.setId(1L);
 
         Owner owner2 = new Owner();
-        owner2.setId(1L);
+        owner2.setId(2L);
 
         owners.add(owner1);
         owners.add(owner2);
@@ -95,10 +98,26 @@ class OwnerControllerTest {
 
     @Test
     void testMockMVC() throws Exception {
-        MockMvc mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
-
         mockMvc.perform(get("/owners"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("owners/index"));
+    }
+
+    @Test
+    void testOwnerNotFound() throws Exception {
+        when(ownerService.findById(3000L)).thenThrow(NotFoundException.class);
+
+        mockMvc.perform(get("/owners/3000"))
+                .andExpect(status().isNotFound())
+                .andExpect(view().name("errors/404"));
+    }
+
+    @Test
+    void testOwnerNumberFormatException() throws Exception {
+        when(ownerService.findById(3000L)).thenThrow(NotFoundException.class);
+
+        mockMvc.perform(get("/owners/qwerty"))
+                .andExpect(status().isBadRequest())
+                .andExpect(view().name("errors/400"));
     }
 }
