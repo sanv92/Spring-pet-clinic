@@ -18,6 +18,7 @@ import static org.mockito.Mockito.*;
 
 import com.example.demo.services.OwnerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.Matchers.is;
@@ -119,5 +120,38 @@ class OwnerControllerTest {
         mockMvc.perform(get("/owners/qwerty"))
                 .andExpect(status().isBadRequest())
                 .andExpect(view().name("errors/400"));
+    }
+
+    @Test
+    void testOwnerValidationSuccess() throws Exception {
+        Owner owner = new Owner();
+        owner.setId(3000L);
+
+        when(ownerService.save(any())).thenReturn(owner);
+
+        mockMvc.perform(
+                post("/owners/3000/edit")
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                        .param("firstName", "Test")
+                        .param("lastName", "Test")
+                        .param("address", "Ahtri 6")
+                        .param("city", "Tallinn")
+                        .param("phone", "372")
+        )
+                .andExpect(view().name("redirect:/owners/3000"));
+    }
+
+    @Test
+    void testOwnerValidationFailed() throws Exception {
+        Owner owner = new Owner();
+        owner.setId(3000L);
+
+        when(ownerService.save(any())).thenReturn(owner);
+
+        mockMvc.perform(
+                post("/owners/3000/edit")
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+        )
+                .andExpect(view().name("owners/createOrUpdateOwnerForm"));
     }
 }

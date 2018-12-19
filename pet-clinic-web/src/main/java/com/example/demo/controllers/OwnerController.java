@@ -2,11 +2,13 @@ package com.example.demo.controllers;
 
 import com.example.demo.model.Owner;
 import com.example.demo.services.OwnerService;
+import org.apache.logging.log4j.LogManager;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.apache.logging.log4j.Logger;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -80,8 +82,6 @@ public class OwnerController {
     @PostMapping("/new")
     public String processCreationForm(@Valid Owner owner, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            bindingResult.rejectValue("errorMessage", "error.message", "Owner object is empty");
-
             return "owners/createOrUpdateOwnerForm";
         }
         else {
@@ -100,7 +100,7 @@ public class OwnerController {
     }
 
     @PostMapping("/{ownerId}/edit")
-    public String processUpdateOwnerForm(@Valid Owner owner, BindingResult bindingResult, @PathVariable("ownerId") Long ownerId) {
+    public String processUpdateOwnerForm(@Valid @ModelAttribute("owner") Owner owner, @PathVariable("ownerId") Long ownerId, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "owners/createOrUpdateOwnerForm";
         }

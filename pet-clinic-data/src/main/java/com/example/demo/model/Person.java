@@ -2,15 +2,18 @@ package com.example.demo.model;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @MappedSuperclass
 public class Person extends BaseEntity {
-    @NotNull
+    @NotBlank
+    @Size(min = 3, max = 255)
     @Column(name = "first_name")
     private String firstName;
 
-    @NotNull
+    @NotBlank
+    @Size(min = 3, max = 255)
     @Column(name = "last_name")
     private String lastName;
 

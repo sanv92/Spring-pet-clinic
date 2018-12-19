@@ -3,23 +3,26 @@ package com.example.demo.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "owners")
 public class Owner extends Person {
-    @NotNull
+    @NotBlank
+    @Size(min = 3, max = 255)
     @Column(name = "address")
     private String address;
 
-    @NotNull
+    @NotBlank
+    @Size(min = 3, max = 255)
     @Column(name = "city")
     private String city;
 
-    @NotNull
+    @NotBlank
+    @Size(min = 3, max = 255)
     @Column(name = "phone")
     private String phone;
 
