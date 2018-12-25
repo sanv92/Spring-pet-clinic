@@ -16,6 +16,10 @@
             class="form-horizontal"
             id="create-owner-form"
     >
+        <div th:if="${#fields.hasErrors('*')}">
+            <p>Please Correct Errors Below!</p>
+        </div>
+
         <input type="hidden" name="id" th:value="*{id}"/>
         <div class="form-group">
 
@@ -29,11 +33,13 @@
                                 size="30"
                                 maxlength="80"
                         />
+                        <span th:each="err : ${#fields.errors('name')}" th:text="${err}" />
                     </div>
                     <div class="form-field">
                         <label class="control-label">Birth Date:</label>
                         <input class="form-control"
                                type="date" th:value="*{birthDate}" th:field="*{birthDate}"/>
+                        <span th:each="err : ${#fields.errors('birthDate')}" th:text="${err}" />
                     </div>
                     <div class="form-field">
                         <label class="control-label">Type:</label>

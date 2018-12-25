@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -23,6 +25,8 @@ public class Pet extends BaseEntity {
         }
     }
 
+    @NotBlank
+    @Size(min = 3, max = 255)
     @Column(name = "name")
     private String name;
 

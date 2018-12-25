@@ -22,10 +22,10 @@ public class OwnerController {
         this.ownerService = ownerService;
     }
 
-    @InitBinder
-    public void setAllowedFields(WebDataBinder dataBinder) {
-        dataBinder.setDisallowedFields("id");
-    }
+//    @InitBinder
+//    public void setAllowedFields(WebDataBinder dataBinder) {
+//        dataBinder.setDisallowedFields("id");
+//    }
 
     @RequestMapping({"", "/index",  "/index.html"})
     public String index(Model model) {
@@ -80,7 +80,7 @@ public class OwnerController {
     }
 
     @PostMapping("/new")
-    public String processCreationForm(@Valid Owner owner, BindingResult bindingResult) {
+    public String processCreationForm(@ModelAttribute("owner") @Valid Owner owner, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "owners/createOrUpdateOwnerForm";
         }
@@ -100,12 +100,11 @@ public class OwnerController {
     }
 
     @PostMapping("/{ownerId}/edit")
-    public String processUpdateOwnerForm(@Valid @ModelAttribute("owner") Owner owner, @PathVariable("ownerId") Long ownerId, BindingResult bindingResult) {
+    public String processUpdateOwnerForm(@ModelAttribute("owner") @Valid Owner owner, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "owners/createOrUpdateOwnerForm";
         }
         else {
-            owner.setId(ownerId);
             Owner savedOwner = ownerService.save(owner);
 
             return "redirect:/owners/" + savedOwner.getId();

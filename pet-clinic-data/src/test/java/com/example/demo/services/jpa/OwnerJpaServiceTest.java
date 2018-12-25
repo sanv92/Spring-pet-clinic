@@ -49,8 +49,11 @@ class OwnerJpaServiceTest {
     @Test
     void getOwnersCount() {
         Set<Owner> owners = ownerJpaService.findAll();
+
         Owner owner1 = new Owner();
+        owner1.setId(1L);
         Owner owner2 = new Owner();
+        owner2.setId(2L);
 
         owners.add(owner1);
         owners.add(owner2);
@@ -60,12 +63,16 @@ class OwnerJpaServiceTest {
 
     @Test
     void getOwners2() {
-        List<Owner> ownerData = new ArrayList<>();
+        List<Owner> owner = new ArrayList<>();
 
-        ownerData.add(new Owner());
-        ownerData.add(new Owner());
+        Owner owner1 = new Owner();
+        owner1.setId(1L);
+        Owner owner2 = new Owner();
+        owner2.setId(2L);
+        owner.add(owner1);
+        owner.add(owner2);
 
-        when(ownerRepository.findAll()).thenReturn(ownerData);
+        when(ownerRepository.findAll()).thenReturn(owner);
         Set<Owner> owners = ownerJpaService.findAll();
 
         assertNotNull(owners);
